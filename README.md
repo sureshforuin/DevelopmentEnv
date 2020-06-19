@@ -1,4 +1,6 @@
-Suresh K. – UI Developer
+https://www.employeeconnect.com/blog/example-performance-review-phrases-for-common-skills-competencies/ 
+
+11Suresh K. – UI Developer
 +91-9790923446 
 sureshforuin@gmail.com
 http://www.sureshonline.com
