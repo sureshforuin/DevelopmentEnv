@@ -1,0 +1,71 @@
+<dependency>
+    <groupId>org.springframework.boot</groupId>
+    <artifactId>spring-boot-starter-web</artifactId>
+</dependency>
+
+
+
+import org.springframework.boot.web.servlet.FilterRegistrationBean;
+import org.springframework.context.annotation.Bean;
+import org.springframework.context.annotation.Configuration;
+import org.springframework.web.filter.CommonsRequestLoggingFilter;
+import org.springframework.web.filter.ShallowEtagHeaderFilter;
+import org.springframework.web.filter.OncePerRequestFilter;
+
+import javax.servlet.Filter;
+import javax.servlet.FilterChain;
+import javax.servlet.FilterConfig;
+import javax.servlet.ServletException;
+import javax.servlet.ServletRequest;
+import javax.servlet.ServletResponse;
+import java.io.IOException;
+import java.util.zip.GZIPOutputStream;
+
+@Configuration
+public class GzipConfig {
+    @Bean
+    public FilterRegistrationBean<Filter> gzipFilter() {
+        FilterRegistrationBean<Filter> filterRegistrationBean = new FilterRegistrationBean<>();
+        filterRegistrationBean.setFilter(new GzipFilter());
+        filterRegistrationBean.addUrlPatterns("/*"); // Apply to all URLs
+        return filterRegistrationBean;
+    }
+
+    private static class GzipFilter extends OncePerRequestFilter {
+        @Override
+        protected void doFilterInternal(HttpServletRequest request, HttpServletResponse response,
+                                        FilterChain filterChain) throws ServletException, IOException {
+            if (request.getHeader("Accept-Encoding").contains("gzip")) {
+                // Set response headers
+                response.addHeader("Content-Encoding", "gzip");
+                response.addHeader("Vary", "Accept-Encoding");
+                
+                // Wrap response output stream with GZIPOutputStream
+                GZIPOutputStream gzipOutputStream = new GZIPOutputStream(response.getOutputStream());
+                filterChain.doFilter(request, new GzipResponseWrapper(response, gzipOutputStream));
+                gzipOutputStream.finish();
+            } else {
+                filterChain.doFilter(request, response);
+            }
+        }
+    }
+    
+    private static class GzipResponseWrapper extends HttpServletResponseWrapper {
+        private final GZIPOutputStream gzipOutputStream;
+
+        public GzipResponseWrapper(HttpServletResponse response, GZIPOutputStream gzipOutputStream) {
+            super(response);
+            this.gzipOutputStream = gzipOutputStream;
+        }
+
+        @Override
+        public ServletOutputStream getOutputStream() throws IOException {
+            return new ServletOutputStream() {
+                @Override
+                public void write(int b) throws IOException {
+                    gzipOutputStream.write(b);
+                }
+            };
+        }
+    }
+}
