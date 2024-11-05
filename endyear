@@ -26,7 +26,15 @@ Additionally, ensured effective utilization of vendor resources and made valuabl
 
 Delivered all business commitments on time with high quality. Led the development and global implementation of the Nimbus application, ensuring active stakeholder engagement and transparent, timely communication. Met all business deadlines without slippage and focused on performance improvements and NFR commitments to ensure Nimbus’s stability.
 
+Scrum Time Limit: Scrum meetings should be strictly limited to 30 minutes, with an extension of up to 15 minutes only in unavoidable situations.
 
+UI Team Local Database Quality: The UI team often faces data issues in the local database. To ensure smooth local development, there should always be quality data available, at least for one account.
+
+Functional Knowledge Sharing: A small team should regularly explain the functionality of specific modules. Over time, this routine practice will help team members connect the dots and develop a comprehensive understanding of the application.
+
+Value of Application Metrics for Traders: The application displays various metrics, but it’s essential to educate team members on how these metrics benefit traders and what actions traders might take based on them. This understanding can help improve the quality of work.
+
+Addressing Lead Concerns Privately: When a lead has concerns, questions, or doubts about someone’s efforts, it’s usually better to address these privately rather than in a group call. One-on-one discussions help avoid making individuals feel uncomfortable and can prevent them from distancing themselves from the lead.
 
 
 
