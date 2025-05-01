@@ -1,0 +1,107 @@
+import React, { useState } from "react";
+import DatePicker from "react-datepicker";
+import "react-datepicker/dist/react-datepicker.css";
+
+export default function CustomMonthYearPicker() {
+  const [selectedDate, setSelectedDate] = useState(new Date());
+  const [view, setView] = useState("year"); // year or month
+  const [tempYear, setTempYear] = useState(new Date().getFullYear());
+
+  const startYear = Math.floor(tempYear / 10) * 10;
+  const decadeYears = [...Array(12)].map((_, i) => startYear - 1 + i);
+  const months = [
+    "Jan", "Feb", "Mar", "Apr",
+    "May", "Jun", "Jul", "Aug",
+    "Sep", "Oct", "Nov", "Dec"
+  ];
+
+  return (
+    <DatePicker
+      selected={selectedDate}
+      onChange={(date) => {
+        setSelectedDate(date);
+        setView("year");
+      }}
+      dateFormat="MM/yyyy"
+      showPopperArrow={false}
+      showMonthYearPicker
+      renderCustomHeader={({ date }) => {
+        return (
+          <div style={{ textAlign: "center", padding: "10px" }}>
+            {view === "year" ? (
+              <>
+                <div style={{ marginBottom: 8 }}>
+                  <button onClick={() => setTempYear(tempYear - 10)}>«</button>
+                  <span style={{ margin: "0 15px" }}>
+                    {startYear} - {startYear + 9}
+                  </span>
+                  <button onClick={() => setTempYear(tempYear + 10)}>»</button>
+                </div>
+                <div style={{
+                  display: "grid",
+                  gridTemplateColumns: "repeat(3, 1fr)",
+                  gap: "6px"
+                }}>
+                  {decadeYears.map((year) => (
+                    <div
+                      key={year}
+                      style={{
+                        cursor: "pointer",
+                        padding: "6px",
+                        backgroundColor: year === selectedDate.getFullYear() ? "#007bff" : "transparent",
+                        color: year === selectedDate.getFullYear() ? "#fff" : "#000",
+                        borderRadius: "4px"
+                      }}
+                      onClick={() => {
+                        setTempYear(year);
+                        setView("month");
+                      }}
+                    >
+                      {year}
+                    </div>
+                  ))}
+                </div>
+              </>
+            ) : (
+              <>
+                <div style={{ marginBottom: 8 }}>
+                  <button onClick={() => setView("year")}>← Back</button>
+                  <span style={{ marginLeft: 20 }}>{tempYear}</span>
+                </div>
+                <div style={{
+                  display: "grid",
+                  gridTemplateColumns: "repeat(3, 1fr)",
+                  gap: "6px"
+                }}>
+                  {months.map((month, idx) => (
+                    <div
+                      key={month}
+                      style={{
+                        cursor: "pointer",
+                        padding: "6px",
+                        backgroundColor: idx === selectedDate.getMonth() && tempYear === selectedDate.getFullYear()
+                          ? "#007bff" : "transparent",
+                        color: idx === selectedDate.getMonth() && tempYear === selectedDate.getFullYear()
+                          ? "#fff" : "#000",
+                        borderRadius: "4px"
+                      }}
+                      onClick={() => {
+                        const newDate = new Date(selectedDate);
+                        newDate.setFullYear(tempYear);
+                        newDate.setMonth(idx);
+                        setSelectedDate(newDate);
+                        setView("year");
+                      }}
+                    >
+                      {month}
+                    </div>
+                  ))}
+                </div>
+              </>
+            )}
+          </div>
+        );
+      }}
+    />
+  );
+}
