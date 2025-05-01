@@ -8,135 +8,138 @@ const months = [
   "Sep", "Oct", "Nov", "Dec"
 ];
 
-export default function SmartCustomDatePicker() {
-  const [selectedDate, setSelectedDate] = useState(new Date());
+export default function CustomDatePicker() {
+  const [selectedDate, setSelectedDate] = useState(new Date()); // shown in input
+  const [tempDate, setTempDate] = useState(new Date()); // used internally for month/year
+  const [view, setView] = useState("date"); // 'date' | 'month' | 'year'
 
-  // New internal states
-  const [view, setView] = useState("date"); // 'date', 'month', 'year'
-  const [internalYear, setInternalYear] = useState(selectedDate.getFullYear());
-  const [internalMonth, setInternalMonth] = useState(selectedDate.getMonth());
+  const tempYear = tempDate.getFullYear();
+  const startYear = Math.floor(tempYear / 9) * 9;
+  const years = [...Array(9)].map((_, i) => startYear + i);
 
   const handleDaySelect = (date) => {
-    const finalDate = new Date(date);
-    finalDate.setFullYear(internalYear);
-    finalDate.setMonth(internalMonth);
-    setSelectedDate(finalDate);
-    setView("date");
-  };
-
-  const renderHeader = ({ date }) => {
-    const startYear = Math.floor(internalYear / 9) * 9;
-    const years = [...Array(9)].map((_, i) => startYear + i);
-
-    return (
-      <div style={{ textAlign: "center", padding: 10 }}>
-        {view === "date" && (
-          <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center" }}>
-            <button onClick={() => {
-              const prev = new Date(internalYear, internalMonth - 1);
-              setInternalMonth(prev.getMonth());
-              setInternalYear(prev.getFullYear());
-            }}>‹</button>
-
-            <div>
-              <span
-                onClick={() => setView("month")}
-                style={{ cursor: "pointer", fontWeight: "bold", marginRight: 8 }}
-              >
-                {months[internalMonth]}
-              </span>
-              <span
-                onClick={() => setView("year")}
-                style={{ cursor: "pointer", fontWeight: "bold" }}
-              >
-                {internalYear}
-              </span>
-            </div>
-
-            <button onClick={() => {
-              const next = new Date(internalYear, internalMonth + 1);
-              setInternalMonth(next.getMonth());
-              setInternalYear(next.getFullYear());
-            }}>›</button>
-          </div>
-        )}
-
-        {view === "month" && (
-          <>
-            <div style={{ marginBottom: 10 }}>
-              <button onClick={() => setView("date")}>← Back</button>
-            </div>
-            <div style={{
-              display: "grid",
-              gridTemplateColumns: "repeat(3, 1fr)",
-              gap: "6px"
-            }}>
-              {months.map((month, idx) => (
-                <div
-                  key={month}
-                  style={{
-                    cursor: "pointer",
-                    padding: "6px",
-                    backgroundColor: idx === internalMonth ? "#007bff" : "transparent",
-                    color: idx === internalMonth ? "#fff" : "#000",
-                    borderRadius: "4px"
-                  }}
-                  onClick={() => {
-                    setInternalMonth(idx);
-                    setView("date");
-                  }}
-                >
-                  {month}
-                </div>
-              ))}
-            </div>
-          </>
-        )}
-
-        {view === "year" && (
-          <>
-            <div style={{ display: "flex", justifyContent: "space-between", marginBottom: 10 }}>
-              <button onClick={() => setInternalYear(internalYear - 9)}>«</button>
-              <span>{startYear} - {startYear + 8}</span>
-              <button onClick={() => setInternalYear(internalYear + 9)}>»</button>
-            </div>
-            <div style={{
-              display: "grid",
-              gridTemplateColumns: "repeat(3, 1fr)",
-              gap: "6px"
-            }}>
-              {years.map((year) => (
-                <div
-                  key={year}
-                  style={{
-                    cursor: "pointer",
-                    padding: "6px",
-                    backgroundColor: year === internalYear ? "#007bff" : "transparent",
-                    color: year === internalYear ? "#fff" : "#000",
-                    borderRadius: "4px"
-                  }}
-                  onClick={() => {
-                    setInternalYear(year);
-                    setView("date");
-                  }}
-                >
-                  {year}
-                </div>
-              ))}
-            </div>
-          </>
-        )}
-      </div>
+    // commit only on final date click
+    const committedDate = new Date(
+      tempDate.getFullYear(),
+      tempDate.getMonth(),
+      date.getDate()
     );
+    setSelectedDate(committedDate);
+    setTempDate(committedDate);
+    setView("date");
   };
 
   return (
     <DatePicker
-      selected={new Date(internalYear, internalMonth, selectedDate.getDate())}
-      onChange={handleDaySelect}
+      selected={selectedDate}
+      onChange={() => {}} // override default
       dateFormat="dd/MM/yyyy"
-      renderCustomHeader={renderHeader}
-      showPopperArrow={false}
+      inline
+      renderCustomHeader={({ decreaseMonth, increaseMonth }) => (
+        <div style={{ textAlign: "center", padding: 10 }}>
+          {view === "date" && (
+            <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center" }}>
+              <button onClick={decreaseMonth}>‹</button>
+              <div>
+                <span
+                  onClick={() => setView("month")}
+                  style={{ cursor: "pointer", fontWeight: "bold", marginRight: 8 }}
+                >
+                  {months[tempDate.getMonth()]}
+                </span>
+                <span
+                  onClick={() => setView("year")}
+                  style={{ cursor: "pointer", fontWeight: "bold" }}
+                >
+                  {tempDate.getFullYear()}
+                </span>
+              </div>
+              <button onClick={increaseMonth}>›</button>
+            </div>
+          )}
+
+          {view === "month" && (
+            <div>
+              <div style={{ marginBottom: 10 }}>
+                <button onClick={() => setView("date")}>← Back</button>
+              </div>
+              <div style={{
+                display: "grid",
+                gridTemplateColumns: "repeat(3, 1fr)",
+                gap: "6px"
+              }}>
+                {months.map((month, idx) => (
+                  <div
+                    key={month}
+                    style={{
+                      cursor: "pointer",
+                      padding: "6px",
+                      backgroundColor: idx === tempDate.getMonth() ? "#007bff" : "transparent",
+                      color: idx === tempDate.getMonth() ? "#fff" : "#000",
+                      borderRadius: "4px"
+                    }}
+                    onClick={() => {
+                      const newDate = new Date(tempDate);
+                      newDate.setMonth(idx);
+                      setTempDate(newDate);
+                      setView("date");
+                    }}
+                  >
+                    {month}
+                  </div>
+                ))}
+              </div>
+            </div>
+          )}
+
+          {view === "year" && (
+            <div>
+              <div style={{
+                display: "flex",
+                justifyContent: "space-between",
+                marginBottom: 10
+              }}>
+                <button onClick={() => setTempDate(new Date(tempDate.setFullYear(tempYear - 9)))}>«</button>
+                <span>{startYear} - {startYear + 8}</span>
+                <button onClick={() => setTempDate(new Date(tempDate.setFullYear(tempYear + 9)))}>»</button>
+              </div>
+              <div style={{
+                display: "grid",
+                gridTemplateColumns: "repeat(3, 1fr)",
+                gap: "6px"
+              }}>
+                {years.map((year) => (
+                  <div
+                    key={year}
+                    style={{
+                      cursor: "pointer",
+                      padding: "6px",
+                      backgroundColor: year === tempDate.getFullYear() ? "#007bff" : "transparent",
+                      color: year === tempDate.getFullYear() ? "#fff" : "#000",
+                      borderRadius: "4px"
+                    }}
+                    onClick={() => {
+                      const newDate = new Date(tempDate);
+                      newDate.setFullYear(year);
+                      setTempDate(newDate);
+                      setView("date");
+                    }}
+                  >
+                    {year}
+                  </div>
+                ))}
+              </div>
+            </div>
+          )}
+        </div>
+      )}
+      dayClassName={(date) =>
+        date.getMonth() === tempDate.getMonth() && date.getFullYear() === tempDate.getFullYear()
+          ? "custom-day"
+          : "hidden-day"
+      }
+      onDayClick={handleDaySelect}
+      calendarStartDay={0}
     />
   );
 }
