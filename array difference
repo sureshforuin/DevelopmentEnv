@@ -1,6 +1,7 @@
 const a = [{ a: "apple", b: "ball", config: { debug: true } }];
 const b = [{ a: "apple", b: "ball", config: { debug: false } }];
 
+// Deep equality checker
 function deepEqual(obj1, obj2) {
   if (obj1 === obj2) return true;
 
@@ -16,9 +17,11 @@ function deepEqual(obj1, obj2) {
   return keys1.every(key => deepEqual(obj1[key], obj2[key]));
 }
 
-const hasDifference = a.some((item, index) => {
-  const compareItem = b[index];
-  return !deepEqual(item, compareItem);
+// Compare and mark changes
+const result = b.map((itemB, index) => {
+  const itemA = a[index];
+  const changed = !deepEqual(itemA, itemB);
+  return changed ? { ...itemB, changed: true } : itemB;
 });
 
-console.log(hasDifference); // true
+console.log(result);
