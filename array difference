@@ -25,3 +25,27 @@ const result = b.map((itemB, index) => {
 });
 
 console.log(result);
+
+
+// Calculates new time using moment
+  function calculateNewDayTime(day, timeStr) {
+    const baseDate = moment(); // Today
+    if (day === "T-1") {
+      baseDate.subtract(1, "day");
+    }
+
+    const [hour, minute] = timeStr.split(":").map(Number);
+    baseDate.set({ hour, minute, second: 0, millisecond: 0 });
+
+    const resultDate = baseDate.clone().add(1439, "minutes"); // Add 23h 59m
+
+    const newDay = resultDate.isSame(baseDate, "day") ? day : "T";
+    const formattedTime = resultDate.format("HH:mm");
+
+    return `${newDay} ${formattedTime}`;
+  }
+
+  const handleCalculate = () => {
+    const output = calculateNewDayTime(selectedDay, selectedTime);
+    setResult(output);
+  };
