@@ -27,34 +27,34 @@ const result = b.map((itemB, index) => {
 console.log(result);
 
 
-const calculateNewDayTime = (day, timeStr) => {
+ const calculateNewDayTime = (day, timeStr) => {
     const [hour, minute] = timeStr.split(":").map(Number);
 
-    // Base reference: assume T is today
+    // Set base date: assume T = today
     let baseDate = moment().startOf("day");
-    if (day === "T-1") baseDate.subtract(1, "day");
-    if (day === "T+1") baseDate.add(1, "day");
+    if (day === "T-1") {
+      baseDate.subtract(1, "day");
+    } else if (day === "T+1") {
+      baseDate.add(1, "day");
+    }
 
     const startTime = baseDate.clone().set({ hour, minute, second: 0 });
 
-    // Add 23:59 to time
+    // Add 23 hours 59 minutes
     const endTime = startTime.clone().add(23, "hours").add(59, "minutes");
 
-    // Determine day diff
-    const dayDiff = endTime.startOf("day").diff(startTime.startOf("day"), "days");
+    // Compare days
+    const startDay = startTime.format("YYYY-MM-DD");
+    const endDay = endTime.format("YYYY-MM-DD");
 
-    const newDay =
-      day === "T-1" && dayDiff === 0 ? "T-1"
-      : day === "T-1" && dayDiff === 1 ? "T"
-      : day === "T" && dayDiff === 0 ? "T"
-      : day === "T" && dayDiff === 1 ? "T+1"
-      : day; // fallback for T+1 or others
+    let newDay = day;
+
+    if (day === "T-1" && endDay !== startDay) {
+      newDay = "T";
+    } else if (day === "T" && endDay !== startDay) {
+      newDay = "T+1";
+    }
 
     const newTime = endTime.format("HH:mm");
     return `${newDay} ${newTime}`;
-  };
-
-  const handleCalculate = () => {
-    const output = calculateNewDayTime(selectedDay, selectedTime);
-    setResult(output);
   };
