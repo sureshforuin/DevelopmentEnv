@@ -1,0 +1,159 @@
+1. Code Quality & Readability
+
+✅ Code structure
+
+Component files are small, focused, and meaningful.
+
+Each component handles a single responsibility.
+
+Code is modular and reusable.
+
+Follows project folder conventions (components/, hooks/, utils/, etc.).
+
+✅ Readability
+
+Variable and function names are descriptive and consistent (camelCase for JS, PascalCase for components).
+
+Avoids deep nesting or complex conditional logic — use early returns.
+
+No unnecessary console logs or commented-out code.
+
+Follows ESLint & Prettier rules.
+
+✅ Consistency
+
+Code follows the team’s style guide (e.g., Airbnb or custom lint rules).
+
+Proper use of semicolons, indentation, and spacing.
+
+⚛️ 2. React-Specific Checks
+
+✅ Component best practices
+
+Functional components (with hooks) are preferred over class components.
+
+Avoids unnecessary re-renders (use React.memo, useCallback, useMemo appropriately).
+
+Uses prop destructuring at the top of the component.
+
+Default values and prop types (or TypeScript interfaces) are defined.
+
+✅ Hooks
+
+Hooks follow the rules of hooks (only called at top level, not inside loops or conditionals).
+
+useEffect dependencies are correct and minimal (no infinite loops).
+
+Cleanup functions are used in effects where necessary.
+
+Custom hooks are abstracted properly and reusable.
+
+✅ State Management
+
+State is minimal and localized; derived data isn’t duplicated in state.
+
+Context or external state management (Redux, Zustand, etc.) is used only when necessary.
+
+💄 3. UI & UX Review
+
+✅ Design consistency
+
+UI matches Figma / design specs.
+
+Uses consistent spacing, color, and typography tokens.
+
+Responsive behavior verified (mobile, tablet, desktop).
+
+✅ Accessibility (a11y)
+
+Semantic HTML tags (button, label, nav, etc.) used correctly.
+
+ARIA attributes where needed.
+
+Keyboard navigation and focus states verified.
+
+Images have alt text.
+
+✅ User Interaction
+
+Buttons, inputs, and links have appropriate feedback states.
+
+Form validations and error messages are clear.
+
+No layout shifts or flickers on interaction.
+
+⚙️ 4. Performance & Optimization
+
+✅ Rendering
+
+Avoids heavy computations inside render — use useMemo.
+
+Conditional rendering doesn’t cause UI flicker.
+
+List rendering uses key props correctly and uniquely.
+
+✅ Network & Data
+
+API calls are debounced/throttled if needed.
+
+Fetch calls are canceled on component unmount when appropriate.
+
+Data fetching handled via hooks (React Query, SWR, etc.).
+
+✅ Code Splitting
+
+Lazy loading and suspense are used for large modules.
+
+Unused imports or libraries removed.
+
+🔒 5. Security
+
+✅ Data handling
+
+No hardcoded secrets or tokens.
+
+Input values sanitized before use.
+
+Avoids direct DOM manipulation (dangerouslySetInnerHTML used safely).
+
+✅ API
+
+All API endpoints are validated and error-handled.
+
+Tokens or headers not exposed in logs.
+
+🧪 6. Testing & Error Handling
+
+✅ Testing
+
+Unit tests exist for critical logic or hooks.
+
+Component rendering tests cover main UI flows.
+
+Edge cases considered.
+
+✅ Error Handling
+
+Try/catch used around API calls.
+
+Fallback UI or boundaries in place (ErrorBoundary).
+
+Graceful loading and empty states handled.
+
+🚀 7. Deployment & Maintainability
+
+✅ Build readiness
+
+No unused dependencies or console warnings.
+
+Environment variables correctly set up.
+
+.env not committed.
+
+✅ Maintainability
+
+Comments only where logic isn’t self-explanatory.
+
+Proper folder naming and grouping (components, hooks, assets, etc.).
+
+Type safety ensured (if TypeScript).
