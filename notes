@@ -1,0 +1,30 @@
+RRRR
+
+
+Task list
+
+Based on new BOs (core and Alerts) Permission route to screen
+Create setup based on  core BO
+Show column based on BO permission
+Download based on BO
+Primary setup need to indicate in the screen
+Dropdown indicate which one is primary, In popup mention this cycle is a primary setup
+Show dropdown for core/alerts, 
+Daily ARRR adjustment, Adjusted ARR, Adjusted CRRRA will move to 3rd section
+Include upload option for all the core  changes 
+
+Question
+
+Normal users should need to see all the field
+Primary RRR setup should be Entity and CCY level
+Alert role  screens should need core information to decide the alert
+If Day consideration reduced directly impacts the alert threshold
+Is CRRR require to add as one of the metric in alert
+DTA how to calculate CRRRA ?
+Both core and alert access possible?
+Is that dropdown really needed?
+Do fields need duel key in?
+Maintaining two different maker and checker for the flow?
+
+
+What is the impact of new DTA, how to handle the existing RRR setup?
