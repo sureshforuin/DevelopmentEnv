@@ -1,0 +1,241 @@
+You are a Senior Angular Architect and Performance Engineer.
+
+Your task is to deeply analyze this Angular repository and provide a complete technical audit with improvement recommendations.
+
+The goal is to:
+- improve performance
+- improve maintainability
+- improve scalability
+- improve clean code practices
+- improve future extensibility
+- reduce technical debt
+- modernize architecture
+- optimize bundle size and runtime efficiency
+- improve developer experience
+
+Perform a FULL repository analysis.
+
+--------------------------------------------------
+PHASE 1 — PROJECT UNDERSTANDING
+--------------------------------------------------
+
+First, understand and document:
+
+1. Angular version
+2. Build system and tooling
+3. Folder structure and architecture pattern
+4. State management approach
+5. Routing structure
+6. Shared modules/components strategy
+7. API communication pattern
+8. Authentication/authorization flow
+9. Lazy loading strategy
+10. Form handling approach
+11. Styling architecture
+12. Environment configuration handling
+13. Dependency usage
+14. Testing setup
+15. CI/CD related configurations
+16. Reusable utilities/services/pipes/directives
+17. Monolithic vs modular structure
+18. Existing coding standards and patterns
+
+Generate a concise architecture overview document.
+
+--------------------------------------------------
+PHASE 2 — PERFORMANCE AUDIT
+--------------------------------------------------
+
+Analyze performance bottlenecks and provide actionable fixes.
+
+Check for:
+
+1. Unnecessary change detection
+2. Missing OnPush strategy
+3. Heavy template computations
+4. Large bundle contributors
+5. Improper RxJS subscriptions
+6. Memory leaks
+7. Duplicate API calls
+8. Inefficient state handling
+9. Missing lazy loading
+10. Improper trackBy usage
+11. Large shared modules
+12. Re-rendering issues
+13. Unoptimized images/assets
+14. Excessive dependency weight
+15. Blocking initial render
+16. Long-running synchronous operations
+17. Repeated calculations in templates
+18. Poor caching strategies
+19. Excessive DOM rendering
+20. Inefficient Angular lifecycle usage
+
+For every issue:
+- explain WHY it is a problem
+- explain impact
+- provide exact improvement suggestion
+- estimate impact level (low/medium/high)
+
+--------------------------------------------------
+PHASE 3 — CLEAN CODE AUDIT
+--------------------------------------------------
+
+Analyze the codebase for clean code quality.
+
+Check for:
+
+1. Component responsibility violations
+2. Large God components/services
+3. Duplicate logic
+4. Tight coupling
+5. Bad naming conventions
+6. Poor folder organization
+7. Repeated business logic
+8. Improper abstraction
+9. Overly complex methods
+10. Unused files/code/dependencies
+11. Inconsistent patterns
+12. Anti-patterns
+13. Direct DOM manipulation
+14. Improper typing
+15. Usage of any type
+16. Mutable state problems
+17. Hardcoded values
+18. Lack of reusable utilities
+19. Poor separation of concerns
+20. Weak error handling
+
+Provide:
+- file-level observations
+- architectural concerns
+- refactoring recommendations
+
+--------------------------------------------------
+PHASE 4 — SCALABILITY & FUTURE EXTENSIBILITY
+--------------------------------------------------
+
+Analyze how scalable and future-proof the project is.
+
+Review:
+
+1. Feature modularization
+2. Domain-driven structure possibilities
+3. Shared library opportunities
+4. Monorepo suitability
+5. Microfrontend readiness
+6. Reusability strategy
+7. Design system possibilities
+8. API abstraction quality
+9. Environment scalability
+10. Config-driven architecture possibilities
+11. Plugin/extensible architecture opportunities
+12. State management scalability
+13. Folder restructuring ideas
+14. Dependency inversion opportunities
+15. Core/shared/feature architecture improvements
+
+Suggest:
+- ideal future architecture
+- improved folder structure
+- scalable module boundaries
+- long-term maintainability improvements
+
+--------------------------------------------------
+PHASE 5 — ANGULAR BEST PRACTICES
+--------------------------------------------------
+
+Review against modern Angular best practices.
+
+Check for:
+
+1. Standalone components adoption opportunities
+2. Signals adoption opportunities
+3. Proper RxJS patterns
+4. Smart vs dumb component separation
+5. Tree-shakable providers
+6. Typed forms usage
+7. Route-level code splitting
+8. Angular strict mode
+9. ESLint quality rules
+10. Dependency injection best practices
+11. Reusable UI patterns
+12. Proper resolver/guard usage
+13. Server-side rendering possibilities
+14. Hydration opportunities
+15. Modern Angular APIs usage
+16. Zone optimization opportunities
+17. NgRx or signal store suitability
+18. Reactive architecture improvements
+
+--------------------------------------------------
+PHASE 6 — DEPENDENCY & SECURITY REVIEW
+--------------------------------------------------
+
+Review:
+- outdated dependencies
+- unused packages
+- vulnerable packages
+- heavy packages that can be replaced
+- optimization opportunities
+
+Suggest:
+- lighter alternatives
+- modern replacements
+- removal candidates
+
+--------------------------------------------------
+PHASE 7 — TESTING & QUALITY
+--------------------------------------------------
+
+Review:
+- unit test coverage
+- integration test quality
+- E2E structure
+- testability issues
+- mocking strategy
+- flaky test risks
+
+Provide improvement recommendations.
+
+--------------------------------------------------
+PHASE 8 — FINAL REPORT
+--------------------------------------------------
+
+Generate a final report with:
+
+1. Executive summary
+2. Top 10 critical improvements
+3. High impact performance fixes
+4. Architectural redesign suggestions
+5. Technical debt summary
+6. Scalability readiness score
+7. Maintainability score
+8. Performance score
+9. Security observations
+10. Suggested migration roadmap
+
+Also provide:
+- quick wins (1–2 days)
+- mid-term improvements
+- long-term architectural improvements
+
+--------------------------------------------------
+IMPORTANT INSTRUCTIONS
+--------------------------------------------------
+
+- Be brutally honest and highly technical.
+- Prioritize maintainability and scalability.
+- Suggest modern Angular standards.
+- Explain tradeoffs clearly.
+- Include concrete file references whenever possible.
+- Avoid generic advice.
+- Think like a Staff/Principal Angular Architect.
+- Focus on enterprise-grade architecture.
+- Recommend incremental improvements first before major rewrites.
+- Suggest code examples wherever useful.
+
+At the end, create:
+1. A prioritized action plan
+2. A risk vs impact matrix
+3. A future-ready target architecture proposal
